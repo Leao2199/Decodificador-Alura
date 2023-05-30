@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Criptografia</title>
+	<style>
+	body {
+		background-image: url("C:\\Users\\Gabriel Leão\\Documents\\Challange Alura\\Imagens\\Background.png");
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.imagem-menor {
+		position: absolute;
+		top: 35%;
+		left: 39%;
+	}
+	textarea {
+		background-color: rgba(38, 46, 114, 0.5);
+		opacity: 0.5;
+		border-radius: 15px;
+	}
+
+	button {
+		border-radius: 20px;
+		background-color: darkblue;
+		color: white;
+	}
+
+	.container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		height: 100vh;
+	}
+
+	textarea {
+		margin-bottom: 10px;
+		width: 300px;
+		height: 150px;
+	}
+
+	button {
+		padding: 10px 20px;
+		margin-bottom: 10px;
+	}
+
+	.result {
+		font-weight: bold;
+	}
+	</style>
+</head>
+<body>
+	<img src="C:\Users\Gabriel Leão\Documents\Challange Alura\Imagens\Vector.png" alt="">
+	<img class="imagem-menor" src="Vector (1).png" alt="">
+	<div class="container">
+		<textarea id="input-texto" placeholder="Digite seu texto aqui..."></textarea>
+		<button onclick="criptografar()">Criptografar</button>
+		<button class="descriptografar" onclick="descriptografar()">Descriptografar</button>
+		<p class="result" id="resultado"></p>
+		<button onclick="copiarTexto()">Copiar</button>
+	</div>
+
+	<script>
+		function criptografar() {
+			var texto = document.getElementById("input-texto").value;
+			var textoCriptografado = "";
+
+			for (var i = 0; i < texto.length; i++) {
+				var letra = texto.charAt(i);
+				switch (letra) {
+					case 'e':
+						textoCriptografado += "enter";
+						break;
+					case 'i':
+						textoCriptografado += "imes";
+						break;
+					case 'a':
+						textoCriptografado += "ai";
+						break;
+					case 'o':
+						textoCriptografado += "ober";
+						break;
+					case 'u':
+						textoCriptografado += "ufat";
+						break;
+					default:
+						textoCriptografado += letra;
+				}
+			}
+
+			document.getElementById("resultado").textContent = "Texto criptografado: " + textoCriptografado;
+		}
+
+		function descriptografar() {
+			var textoCriptografado = document.getElementById("input-texto").value;
+			var textoDescriptografado = "";
+
+			var i = 0;
+			while (i < textoCriptografado.length) {
+				if (textoCriptografado.substr(i, 5) === "enter") {
+					textoDescriptografado += "e";
+					i += 5;
+				} else if (textoCriptografado.substr(i, 4) === "imes") {
+					textoDescriptografado += "i";
+					i += 4;
+				} else if (textoCriptografado.substr(i, 2) === "ai") {
+					textoDescriptografado += "a";
+					i += 2;
+				} else if (textoCriptografado.substr(i, 4) === "ober") {
+					textoDescriptografado += "o";
+					i += 4;
+				} else if (textoCriptografado.substr(i, 4) === "ufat") {
+					textoDescriptografado += "u";
+					i += 4;
+				} else {
+					textoDescriptografado += textoCriptografado.charAt(i);
+					i++;
+				}
+			}
+
+			document.getElementById("resultado").textContent = "Texto descriptografado: " + textoDescriptografado;
+		}
+
+		function copiarTexto() {
+			var resultado = document.getElementById("resultado").textContent;
+			var tempInput = document.createElement("textarea");
+			tempInput.value = resultado;
+			document.body.appendChild(tempInput);
+			tempInput.select();
+			document.execCommand("copy");
+			document.body.removeChild(tempInput);
+			alert("Texto copiado para a área de transferência!");
+		}
+	</script>
+</body>
+</html>
